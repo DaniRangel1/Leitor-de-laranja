@@ -51,8 +51,6 @@ Este projeto apresenta um sistema inteligente capaz de identificar, localizar e 
 
 ---
 
-## 📷 Exemplo de Funcionamento (em breve)
-Imagens e vídeos serão adicionados assim que o protótipo estiver em teste.
 
 ---
 
