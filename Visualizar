@@ -1,0 +1,28 @@
+import cv2
+import numpy as np
+
+# Carregar imagem
+imagem = cv2.imread("laranjas.jpg")
+
+# Converter para HSV (melhor para detectar cores)
+hsv = cv2.cvtColor(imagem, cv2.COLOR_BGR2HSV)
+
+# Faixa de cor laranja no HSV
+laranja_baixo = np.array([5, 100, 100])
+laranja_alto = np.array([15, 255, 255])
+
+# Criar máscara para pegar somente as áreas laranjas
+mascara = cv2.inRange(hsv, laranja_baixo, laranja_alto)
+
+# Localizar contornos (possíveis laranjas)
+contornos, _ = cv2.findContours(mascara, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# Desenhar círculos onde achar laranjas
+for c in contornos:
+    (x, y), raio = cv2.minEnclosingCircle(c)
+    if raio > 10:  # evita ruído
+        cv2.circle(imagem, (int(x), int(y)), int(raio), (0, 255, 0), 3)
+
+cv2.imshow("Laranjas detectadas", imagem)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
